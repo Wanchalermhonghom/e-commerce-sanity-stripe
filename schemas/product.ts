@@ -10,6 +10,12 @@ export default {
       validation: (Rule: any) => Rule.required().max(100),
     },
     {
+      name: 'subtitle',
+      title: 'Subtitle',
+      type: 'text',
+      validation: (Rule: any) => Rule.required().min(10).max(100),
+    },
+    {
       name: 'description',
       title: 'Description',
       type: 'text',
@@ -31,18 +37,22 @@ export default {
       validation: (Rule: any) => Rule.required(),
     },
     {
-      name: 'category',
-      title: 'Category',
-      type: 'string',
-      validation: (Rule: any) => Rule.required(),
-      options: {
-        list: [
-          { title: 'Electronics', value: 'electronics' },
-          { title: 'Clothing', value: 'clothing' },
-          { title: 'Books', value: 'books' },
-          // Add more categories as needed
-        ],
-      },
+      name: 'sizes',
+      title: 'Sizes',
+      type: 'array',
+      of: [{ type: 'string' }],
+    },
+    {
+      name: 'quantity',
+      title: 'Quantity',
+      type: 'number',
+      validation: (Rule: any) => Rule.required().min(0),
+    },
+    {
+      name: 'review',
+      title: 'Review',
+      type: 'array',
+      of: [{ type: 'review' }],
     },
   ],
 };

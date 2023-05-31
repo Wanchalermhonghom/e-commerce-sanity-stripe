@@ -39,6 +39,7 @@ export default {
       name: 'date',
       title: 'Date',
       type: 'datetime',
+      initialValue: () => new Date().toISOString(),
       validation: (Rule: any) => Rule.required(),
     },
   ],
