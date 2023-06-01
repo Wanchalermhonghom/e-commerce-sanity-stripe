@@ -20,21 +20,21 @@ type ProductProps = {
   quantity: number;
 };
 
-function Product(props: ProductProps) {
+function ProductCard(props: ProductProps) {
   const urlPath = urlForImage(props.image).url();
   return (
-    <Card className="w-[350px]">
-      <Image src={urlPath} alt="productImage" width={400} height={150} />
+    <Card className="w-[267px]">
+      <Image src={urlPath} alt="productImage" width={267} height={334} />
       <CardHeader>
         <CardTitle>{props.title}</CardTitle>
         <CardDescription>{props.subtitle}</CardDescription>
       </CardHeader>
       <CardContent></CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-end">
         <Button>Add to cart</Button>
       </CardFooter>
     </Card>
   );
 }
 
-export default Product;
+export default ProductCard;

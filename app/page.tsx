@@ -1,29 +1,15 @@
-import Product from '@/components/Product';
+import ProductCard from '@/components/ProductCard';
+import ProductListing from '@/components/ProductListing';
 import { runQuery } from '@/sanity/lib/client';
-import { q, sanityImage } from 'groqd';
+import { fetchProducts } from '@/services/product-service';
+import { InferType, q, sanityImage } from 'groqd';
 
 export default async function Home() {
-  const query = q('*')
-    .filterByType('product')
-    .grab({
-      _id: q.string(),
-      title: q.string(),
-      subtitle: q.string(),
-      description: q.string(),
-      price: q.number(),
-      quantity: q.number(),
-      image: sanityImage('image'),
-      sizes: q.array(q.string()),
-      review: q('*').filterByType('review'),
-    });
 
-  const products = await runQuery(query);
-
+const products = await fetchProducts();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {products.map((product) => (
-        <Product key={product._id} {...product} />
-      ))}
+    <ProductListing products={products} />
     </main>
   );
 }
