@@ -15,6 +15,18 @@ const getProductQuery = q('*')
     review: q('*').filterByType('review'),
   });
 
+const getBannerQuery = q('*')
+  .filterByType('hero')
+  .grab({
+    _id: q.string(),
+    title: q.string(),
+    subtitle: q.string(),
+    backgroundImage: sanityImage('backgroundImage'),
+  });
+
 export const fetchProducts = async () => await runQuery(getProductQuery);
 
+export const fetchBanner = async () => await runQuery(getBannerQuery);
+
+export type Banner = InferType<typeof getBannerQuery>;
 export type Product = InferType<typeof getProductQuery>;

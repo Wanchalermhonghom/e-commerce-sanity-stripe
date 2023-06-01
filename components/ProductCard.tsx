@@ -20,17 +20,18 @@ type ProductProps = {
   quantity: number;
 };
 
-function ProductCard(props: ProductProps) {
-  const urlPath = urlForImage(props.image).url();
+function ProductCard({ title, subtitle, price, image }: ProductProps) {
+  const urlPath = urlForImage(image).url();
   return (
     <Card className="w-[267px]">
       <Image src={urlPath} alt="productImage" width={267} height={334} />
       <CardHeader>
-        <CardTitle>{props.title}</CardTitle>
-        <CardDescription>{props.subtitle}</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{subtitle}</CardDescription>
       </CardHeader>
       <CardContent></CardContent>
-      <CardFooter className="flex justify-end">
+      <CardFooter className="flex justify-between">
+        <span className="">${price}</span>
         <Button>Add to cart</Button>
       </CardFooter>
     </Card>

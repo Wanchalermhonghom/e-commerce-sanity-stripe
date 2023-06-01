@@ -1,5 +1,5 @@
+import ProductCard from '@/components/ProductCard';
 import { Product } from '@/services/product-service';
-import ProductCard from './ProductCard';
 
 type ProductListingProps = {
   products: Product[];
@@ -7,9 +7,9 @@ type ProductListingProps = {
 
 function ProductListing({ products }: ProductListingProps) {
   return (
-    <section>
+    <section className="p-24">
       <div className="flex flex-wrap gap-4">
-        {products.map((product) => (
+        {products.map((product: Product) => (
           <ProductCard key={product._id} {...product} />
         ))}
       </div>
