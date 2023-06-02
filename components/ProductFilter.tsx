@@ -11,21 +11,24 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { useProductListContext } from './context/productListContext';
 
-const frameworks = [
-  {
-    value: 'HighToLow',
-    label: 'Price: High to low',
-  },
+const filters = [
   {
     value: 'LowToHigh',
-    label: 'Price: Low to high',
+    label: 'Price: Low to High',
+  },
+  {
+    value: 'HighToLow',
+    label: 'Price: High to Low',
   },
 ];
 
 export function ProductFilter() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
+
+  const { filterDropDown } = useProductListContext();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -37,8 +40,8 @@ export function ProductFilter() {
           className="w-[200px] justify-between"
         >
           {value
-            ? frameworks.find((framework) => {
-                return framework.label.toLowerCase() === value.toLowerCase();
+            ? filters.find((filter) => {
+                return filter.label.toLowerCase() === value.toLowerCase();
               })?.label
             : 'Sort by'}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -47,12 +50,15 @@ export function ProductFilter() {
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandGroup>
-            {frameworks.map((framework) => (
+            {filters.map((filter) => (
               <CommandItem
-                key={framework.value}
+                key={filter.value}
                 onSelect={(currentValue) => {
-                  console.log(currentValue, value);
-                  console.log(currentValue === value);
+                  const filter = filters.find(
+                    (filter) =>
+                      filter.label.toLowerCase() === currentValue.toLowerCase()
+                  )?.value;
+                  if (filter) filterDropDown(filter);
                   setValue(currentValue === value ? '' : currentValue);
                   setOpen(false);
                 }}
@@ -60,10 +66,10 @@ export function ProductFilter() {
                 <Check
                   className={cn(
                     'mr-2 h-4 w-4',
-                    value === framework.value ? 'opacity-100' : 'opacity-0'
+                    value === filter.value ? 'opacity-100' : 'opacity-0'
                   )}
                 />
-                {framework.label}
+                {filter.label}
               </CommandItem>
             ))}
           </CommandGroup>
