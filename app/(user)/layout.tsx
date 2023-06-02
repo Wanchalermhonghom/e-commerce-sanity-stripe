@@ -1,6 +1,7 @@
 import { Cart } from '@/components/Cart';
 import Navbar from '@/components/Navbar';
 import { Inter } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -21,6 +22,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Cart></Cart>
+        <Toaster />
       </body>
     </html>
   );

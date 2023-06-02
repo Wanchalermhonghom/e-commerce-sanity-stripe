@@ -9,7 +9,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
+import { urlForImage } from '@/sanity/lib/image';
 import { useCartStore } from '@/store/store';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 export function Cart() {
   const { open, setOpen, products } = useCartStore();
@@ -24,7 +26,19 @@ export function Cart() {
         </SheetHeader>
         <div className="grid gap-4 py-4">
           {products.map((product) => {
-            return <div>234</div>;
+            return (
+              <div className="flex gap-2 items-center">
+                <Avatar>
+                  <AvatarImage
+                    src={urlForImage(product.image).url()}
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <span>{product.title}</span>
+                <span>${product.price}</span>
+              </div>
+            );
           })}
         </div>
         <SheetFooter>
