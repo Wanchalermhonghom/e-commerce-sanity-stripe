@@ -1,21 +1,17 @@
 import { Product } from '@/services/product-service';
-import { createStore } from 'zustand';
+import { create } from 'zustand';
 
-interface ProductStoreProps {
+type CartStoreProps = {
+  open: boolean;
   products: Product[];
-}
-
-interface BearState extends ProductStoreProps {
-  setProducts: (products: Product[]) => void;
-}
-
-export const createProductStore = (initProps?: ProductStoreProps) => {
-  const DEFAULT_PROPS: ProductStoreProps = {
-    products: [],
-  };
-  return createStore<BearState>()((set) => ({
-    ...DEFAULT_PROPS,
-    ...initProps,
-    setProducts: (products) => set(() => ({ products })),
-  }));
+  setOpen: (state: boolean) => void;
+  addProductToCart: (product: Product) => void;
 };
+
+export const useCartStore = create<CartStoreProps>((set, get) => ({
+  open: false,
+  products: [],
+  setOpen: (state) => set({ open: state }),
+  addProductToCart: (product: Product) =>
+    set((state) => ({ products: [...state.products, product] })),
+}));

@@ -1,3 +1,4 @@
+import { Cart } from '@/components/Cart';
 import Navbar from '@/components/Navbar';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className={inter.className + 'items-center'}>
         <Navbar />
         {children}
+        <Cart></Cart>
       </body>
     </html>
   );
