@@ -11,6 +11,8 @@ type CartStoreProps = {
   open: boolean;
   products: Product[];
   quantity: Map<string, number>;
+  sumPrice: number;
+  sumQuantity: number;
   setOpen: (state: boolean) => void;
   addProductToCart: (product: Product) => void;
 };
@@ -21,6 +23,8 @@ export const useCartStore = create<CartStoreProps>()(
       open: false,
       products: [],
       quantity: new Map<string, number>(),
+      sumPrice: 0,
+      sumQuantity: 0,
       setOpen: (state: boolean) => set({ open: state }),
       addProductToCart: (product: Product) => {
         toast.success(product.title + ' added');
@@ -31,11 +35,16 @@ export const useCartStore = create<CartStoreProps>()(
             tmpMap.set(product._id, oldQuantity + 1);
             return {
               quantity: tmpMap,
+              sumPrice: state.sumPrice + product.price,
+              sumQuantity: state.sumQuantity + 1,
             };
           });
         } else {
           set((state: CartStoreProps) => ({
             products: [...state.products, product],
+            sumPrice: state.sumPrice + product.price, 
+            sumQuantity: state.sumQuantity + 1,
+            quantity: new Map(state.quantity).set(product._id, 1),
           }));
         }
       },
@@ -47,8 +56,8 @@ export const useCartStore = create<CartStoreProps>()(
           const str = localStorage.getItem(name);
           return {
             state: {
-              ...JSON.parse(str).state,
-              quantity: new Map(JSON.parse(str).state.quantity),
+              ...JSON.parse(str!).state,
+              quantity: new Map(JSON.parse(str!).state.quantity),
             },
           };
         },

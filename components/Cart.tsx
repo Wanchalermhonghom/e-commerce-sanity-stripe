@@ -12,9 +12,10 @@ import {
 import { urlForImage } from '@/sanity/lib/image';
 import { useCartStore } from '@/store/store';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Separator } from './ui/separator';
 
 export function Cart() {
-  const { open, setOpen, products, quantity } = useCartStore();
+  const { open, setOpen, products, quantity, sumPrice } = useCartStore();
 
   return (
     <Sheet open={open}>
@@ -38,11 +39,13 @@ export function Cart() {
                 </Avatar>
                 <span>{product.title}</span>
                 <span>${product.price}</span>
-                <span>{quantity.get(product._id) ?? 0}</span>
+                <span> - {quantity.get(product._id) ?? 0}</span>
               </div>
             );
           })}
         </div>
+        <Separator className="mb-4" />
+        <span>${sumPrice}</span>
         <SheetFooter>
           <SheetClose>
             <Button type="submit">Save changes</Button>
