@@ -14,7 +14,8 @@ import { useCartStore } from '@/store/store';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 export function Cart() {
-  const { open, setOpen, products } = useCartStore();
+  const { open, setOpen, products, quantity } = useCartStore();
+
   return (
     <Sheet open={open}>
       <SheetContent position="right" size="sm">
@@ -37,6 +38,7 @@ export function Cart() {
                 </Avatar>
                 <span>{product.title}</span>
                 <span>${product.price}</span>
+                <span>{quantity.get(product._id) ?? 0}</span>
               </div>
             );
           })}
