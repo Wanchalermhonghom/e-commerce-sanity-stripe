@@ -42,7 +42,7 @@ export const useCartStore = create<CartStoreProps>()(
         } else {
           set((state: CartStoreProps) => ({
             products: [...state.products, product],
-            sumPrice: state.sumPrice + product.price, 
+            sumPrice: state.sumPrice + product.price,
             sumQuantity: state.sumQuantity + 1,
             quantity: new Map(state.quantity).set(product._id, 1),
           }));
@@ -52,7 +52,7 @@ export const useCartStore = create<CartStoreProps>()(
     {
       name: 'cart-storage',
       storage: {
-        getItem: (name) => {
+        getItem: async (name) => {
           const str = localStorage.getItem(name);
           return {
             state: {
