@@ -23,13 +23,13 @@ export function Cart() {
         <SheetHeader>
           <SheetTitle>Edit profile</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
+            Make changes to your profile here. Click save when you are done.
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
-          {products.map((product) => {
+          {products.map((product, index) => {
             return (
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center" key={index}>
                 <Avatar>
                   <AvatarImage
                     src={urlForImage(product.image).url()}
