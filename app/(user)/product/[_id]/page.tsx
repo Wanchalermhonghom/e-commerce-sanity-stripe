@@ -55,8 +55,8 @@ export default async function ProductDetailPage({
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Sizes</SelectLabel>
-                {product.sizes.map((size) => (
-                  <SelectItem value={size}>{size}</SelectItem>
+                {product.sizes.map((size, index) => (
+                  <SelectItem key={index} value={size}>{size}</SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>
